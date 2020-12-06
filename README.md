@@ -1,5 +1,7 @@
 # elliptic_curve_crypto
 
+[![Build Status](https://travis-ci.org/baptiste-pasquier/elliptic_curve_crypto.svg?branch=master)](https://travis-ci.org/baptiste-pasquier/elliptic_curve_crypto)
+
 Projet de TIPE (Travail d'initiative personnelle encadré) sur l'étude de la cryptographie sur les courbes elliptiques.
 
 [Documentation](Documentation.pdf)
