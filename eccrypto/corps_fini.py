@@ -5,10 +5,10 @@
 
 def invmod(a, p):
     """
-    Inverse modulaire
+    Inverse modulaire de a modulo p
     """
     if p == 0:
-        raise Exception("p=0")
+        raise ValueError("p=0")
 
     c, d = a, p  # Copies
 
@@ -34,7 +34,16 @@ class Courbe(object):
     """Courbe elliptique sur un corps premier fini"""
 
     def __init__(self, a, b, p):
-        """Initialisation"""
+        """ y^2 = x^3 + ax + b   mod p
+
+        Args:
+            a (int)
+            b (int)
+            p (int): nombre premier
+
+        Raises:
+            ValueError: Courbe singulière
+        """
         self.a = a
         self.b = b
         self.p = p
@@ -42,14 +51,14 @@ class Courbe(object):
         self.discriminant = -16 * (4 * a ** 3 + 27 * b ** 2)
 
         if self.estsinguliere():
-            raise Exception("La courbe est singulière")
+            raise ValueError("La courbe est singulière")
 
     def possede_point(self, x, y):
         """Renvoie True si le point est sur la courbe"""
         return ((y**2) - (x**3 + self.a * x + self.b)) % self.p == 0
 
     def estsinguliere(self):
-        """Renvoie True si la courbe est non singulière"""
+        """Renvoie True si la courbe est singulière"""
         return self.discriminant % self.p == 0
 
     def __eq__(self, autre):
@@ -63,7 +72,16 @@ class Courbe(object):
 
 class Point(object):
     def __init__(self, courbe, x, y):
-        """Initialisation"""
+        """ Définition d'un point sur la courbe
+
+        Args:
+            courbe (Courbe): courbe elliptique sur laquelle se trouve le point
+            x (int): coordonnée x
+            y (int): coordonnée y
+
+        Raises:
+            ValueError: point non présent sur la courbe
+        """
         self.courbe = courbe
         self.x = x
         self.y = y
@@ -113,7 +131,7 @@ class Point(object):
     def __mul__(self, n):
         """Multiplication par un entier"""
         if not isinstance(n, int):
-            raise Exception("La multiplication requiert un entier")
+            raise TypeError("La multiplication requiert un entier")
         else:
             if n < 0:
                 return -self * -n
